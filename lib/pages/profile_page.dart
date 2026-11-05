@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:kartu_profil_digital/services/pref_service.dart';
+
 import '../models/profile_data.dart';
-// ignore: duplicate_import
 import '../services/pref_service.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key, required this.prefs});
+  const ProfilePage({
+    super.key,
+    required this.prefs,
+    required this.isDark,
+    required this.onThemeChanged,
+  });
   final PrefService prefs;
+  final bool isDark;
+  final ValueChanged<bool> onThemeChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +38,10 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(profile.name,
-                      style: Theme.of(context).textTheme.headlineSmall),
+                  Text(
+                    profile.name,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
                   const SizedBox(height: 4),
                   Text(profile.title),
                   const SizedBox(height: 12),
@@ -41,6 +49,13 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          const SizedBox(height: 8),
+          SwitchListTile(
+            secondary: const Icon(Icons.dark_mode),
+            title: const Text('Mode Gelap'),
+            value: isDark,
+            onChanged: onThemeChanged,
           ),
         ],
       ),
